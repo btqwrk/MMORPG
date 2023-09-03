@@ -845,7 +845,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxMessages: 25
   chatPanel: {fileID: 6881377517169808044}
-  textObject: {fileID: 0}
+  textObject: {fileID: 2257624768285426400, guid: ba86737afaa999347b36791de3967058, type: 3}
+  chatBox: {fileID: 1550137119069201199}
   messageList: []
 --- !u!1 &6881377517169808044
 GameObject:
@@ -1003,7 +1004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 8067463244594823232}
-  m_Horizontal: 1
+  m_Horizontal: 0
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
