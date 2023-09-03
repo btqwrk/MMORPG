@@ -61,12 +61,16 @@ namespace StarterAssets
 			jump = newJumpState;
 		}
 
-		public void SprintInput(bool newSprintState)
-		{
-			sprint = newSprintState;
-		}
+        public void SprintInput(bool newSprintState)
+        {
+            // Toggle sprint state when the sprint button is pressed
+            if (newSprintState)
+            {
+                sprint = !sprint;
+            }
+        }
 
-		private void OnApplicationFocus(bool hasFocus)
+        private void OnApplicationFocus(bool hasFocus)
 		{
 			SetCursorState(cursorLocked);
 		}
