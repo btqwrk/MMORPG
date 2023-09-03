@@ -1,4 +1,5 @@
 ﻿ using UnityEngine;
+ using Mirror;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -12,7 +13,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : NetworkBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -107,7 +108,7 @@ namespace StarterAssets
         private Animator _animator;
         private CharacterController _controller;
         private StarterAssetsInputs _input;
-        private GameObject _mainCamera;
+        private Transform _mainCamera;
 
         private const float _threshold = 0.01f;
 
@@ -128,14 +129,16 @@ namespace StarterAssets
 
         private void Awake()
         {
-            // get a reference to our main camera
+                // get a reference to our main camera
             if (_mainCamera == null)
-            {
-                _mainCamera = GameObject.FindGameObjectWithTag("Player");
-            }
-        }
+            {             
+               _mainCamera = GameObject.Find("MainCamera").gameObject.transform.parent = this.transform;
+               
+            }      
+         
+        } 
 
-        private void Start()
+    private void Start()
         {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
@@ -258,8 +261,7 @@ namespace StarterAssets
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
-                                  _mainCamera.transform.eulerAngles.y;
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
