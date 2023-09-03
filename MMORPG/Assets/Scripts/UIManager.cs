@@ -71,10 +71,4 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
-
-    public void AttemptLogin()
-    {
-        //add username and password check functionality through connecting with server
-        
-    }
 }
