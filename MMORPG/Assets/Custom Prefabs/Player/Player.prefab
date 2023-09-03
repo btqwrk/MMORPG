@@ -2923,6 +2923,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   MoveSpeed: 3
+  cam: {fileID: 3374469347862672388}
   SprintSpeed: 6
   RotationSmoothTime: 0.12
   SpeedChangeRate: 10

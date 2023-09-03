@@ -18,7 +18,7 @@ namespace StarterAssets
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
-
+        public GameObject cam;
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
@@ -126,17 +126,11 @@ namespace StarterAssets
             }
         }
 
-
-        private void Awake()
-        {
-                // get a reference to our main camera
-            if (_mainCamera == null)
-            {             
-               _mainCamera = GameObject.Find("MainCamera").gameObject.transform.parent = this.transform;
-               
-            }      
-         
-        } 
+        public override void OnStartLocalPlayer(){
+            cam.SetActive(true);
+            Debug.Log("camera on");
+        }
+ 
 
     private void Start()
         {
@@ -261,7 +255,7 @@ namespace StarterAssets
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
-                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + _mainCamera.eulerAngles.y;
+                _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg + cam.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
                     RotationSmoothTime);
 
