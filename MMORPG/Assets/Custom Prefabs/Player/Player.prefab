@@ -808,6 +808,7 @@ MonoBehaviour:
   BottomClamp: -30
   CameraAngleOverride: 0
   LockCameraPosition: 0
+  CameraZoomAmount: 0
 --- !u!114 &1878657858073448144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3339,6 +3340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4754713094743616290}
+  - component: {fileID: 2963405173805560545}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3364,8 +3366,25 @@ Transform:
   - {fileID: 4390044201484990934}
   - {fileID: 5994997924979335287}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2963405173805560545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420578453182895084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3875353473
+  serverOnly: 0
+  visible: 0
+  hasSpawned: 0
 --- !u!1 &6629500588686643599
 GameObject:
   m_ObjectHideFlags: 0
