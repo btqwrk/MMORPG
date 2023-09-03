@@ -75,9 +75,6 @@ public class UIManager : MonoBehaviour
     public void AttemptLogin()
     {
         //add username and password check functionality through connecting with server
-        ChangeMenu(4);
+        
     }
-
-
-
 }
