@@ -7,22 +7,27 @@ public class NetworkedPlayerMovement : NetworkBehaviour
     public float rotateSpeed = 100.0f;
     public float gravity = 9.81f; // Set your desired gravity value
 
-    private CharacterController characterController;
+    private Rigidbody rb;
     private Vector3 velocity; // Used for applying gravity
-    public Camera playerCamera; // Reference to the player's camera
+    private Quaternion targetRotation; // Store the target rotation
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        rb = GetComponent<Rigidbody>();
+        targetRotation = transform.rotation; // Initialize target rotation
 
-        // Disable the camera by default for all players
-        if (!isLocalPlayer)
+        if (isLocalPlayer)
         {
-            playerCamera.gameObject.SetActive(false);
+            // Perform any initialization or setup for the local player here
+        }
+        else
+        {
+            // Disable the script and other components that should not run on remote players
+            Destroy(this);
         }
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!isLocalPlayer)
             return;
@@ -30,14 +35,16 @@ public class NetworkedPlayerMovement : NetworkBehaviour
         // Handle user input for movement
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput).normalized;
 
         // Rotate the player based on input
-        transform.Rotate(Vector3.up * horizontalInput * rotateSpeed * Time.deltaTime);
+        targetRotation *= Quaternion.Euler(0, horizontalInput * rotateSpeed * Time.deltaTime, 0);
+
+        // Smoothly interpolate between the current rotation and the target rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.2f);
 
         // Move the player
         Vector3 moveVector = transform.forward * verticalInput * moveSpeed * Time.deltaTime;
-        characterController.Move(moveVector);
+        rb.MovePosition(rb.position + moveVector);
 
         // Apply gravity
         if (velocity.y > 0)
@@ -50,6 +57,5 @@ public class NetworkedPlayerMovement : NetworkBehaviour
     {
         // This code runs only on the local player's client
         // Perform any initialization or setup for the local player here
-        playerCamera.gameObject.SetActive(true); // Enable the camera for the local player
     }
 }

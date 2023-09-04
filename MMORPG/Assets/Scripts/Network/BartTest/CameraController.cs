@@ -1,26 +1,31 @@
 using UnityEngine;
+using Cinemachine;
+using Unity.VisualScripting;
 
 public class CameraController : MonoBehaviour
 {
-    public Transform player;
-    public float rotationSpeed = 2.0f;
+    public float rotationSensitivity;
+    public float zoomSensitivity;
 
-    private Vector3 offset;
+    public CinemachineFreeLook CinemachineCam;
 
-    private void Start()
+
+    private void FixedUpdate()
     {
-        offset = transform.position - player.position;
+        if (Input.GetMouseButton(0))
+        {
+            float mouseX = Input.GetAxis("Mouse X");
+            CinemachineCam.m_XAxis.Value += mouseX;
+        }
+
+        if (Input.GetAxis("Mouse ScrollWheel") != 0)
+        {
+            float scrollY = Input.GetAxis("Mouse ScrollWheel");
+            CinemachineCam.m_YAxis.Value += scrollY;
+        }
     }
 
-    private void LateUpdate()
-    {
-        float mouseX = Input.GetAxis("Mouse X");
 
-        // Rotate the camera around the player
-        Quaternion rotation = Quaternion.Euler(0, mouseX * rotationSpeed, 0);
-        offset = rotation * offset;
 
-        transform.position = player.position + offset;
-        transform.LookAt(player.position);
-    }
 }
+
