@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject settingsScreen;
     public GameObject loadingScreen;
     public GameObject characterSelectionScreen;
+    public GameObject registerScreen;
+
 
 
     public static UIManager instance;
@@ -20,7 +22,8 @@ public class UIManager : MonoBehaviour
         LoginScreen = 1,
         SettingsScreen = 2,
         LoadingScreen = 3,
-        CharacterSelectionScreen = 4
+        CharacterSelectionScreen = 4,
+        RegisterScreen = 5
     }
 
     void Awake()
@@ -32,35 +35,46 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch(_uis)
+        switch (_uis)
         {
             case UIs.LoginScreen:
                 loginScreen.SetActive(true);
                 loadingScreen.SetActive(false);
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(false);
-                
+                registerScreen.SetActive(false); // Add this line
                 break;
             case UIs.SettingsScreen:
                 loginScreen.SetActive(false);
                 loadingScreen.SetActive(false);
                 settingsScreen.SetActive(true);
                 characterSelectionScreen.SetActive(false);
+                registerScreen.SetActive(false); // Add this line
                 break;
             case UIs.LoadingScreen:
                 loginScreen.SetActive(false);
                 loadingScreen.SetActive(true);
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(false);
+                registerScreen.SetActive(false); // Add this line
                 break;
             case UIs.CharacterSelectionScreen:
-                loginScreen.SetActive(false);   
+                loginScreen.SetActive(false);
                 loadingScreen.SetActive(false);
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(true);
+                registerScreen.SetActive(false); // Add this line
+                break;
+            case UIs.RegisterScreen: // Add this case
+                loginScreen.SetActive(false);
+                loadingScreen.SetActive(false);
+                settingsScreen.SetActive(false);
+                characterSelectionScreen.SetActive(false);
+                registerScreen.SetActive(true); // Add this line
                 break;
         }
     }
+
 
     public void ChangeMenu(int ui)
     {
