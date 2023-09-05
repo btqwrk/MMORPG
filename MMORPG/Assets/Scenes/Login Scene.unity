@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 7817000}
   - component: {fileID: 7816999}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CreateButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8801,6 +8801,7 @@ MonoBehaviour:
   passwordInput: {fileID: 1356548545}
   registrationStatusText: {fileID: 453315405}
   playerIDHolder: {fileID: 448909816}
+  UIManager: {fileID: 444048878}
 --- !u!1 &1053211144
 GameObject:
   m_ObjectHideFlags: 0
@@ -10445,7 +10446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c1291726be513b4b9799383ca9405d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Map_Starting_Area_Test
+  sceneName: Player_Test_Scene
   sceneChangeRequester: {fileID: 392695667}
 --- !u!1 &1317958354
 GameObject:

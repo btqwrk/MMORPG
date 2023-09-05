@@ -61,7 +61,7 @@ public class GameManager : NetworkBehaviour
 
             case GameState.Game:
                 // Handle game state logic (e.g., start gameplay)
-                SceneManager.LoadScene("Map_Starting_Area_Test");
+                SceneManager.LoadScene("Player_Test_Scene");
                 break;
         }
     }
