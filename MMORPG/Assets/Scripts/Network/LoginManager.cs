@@ -11,6 +11,7 @@ public class LoginManager : MonoBehaviour
     public TMP_InputField usernameInput;
     public TMP_InputField passwordInput;
     public UIManager loginUI;
+    public PlayerSessionIDHolder playerSessionIDHolder;
 
     private string serverUrl = "http://localhost:8080/api/check-authorization"; // Replace with your server URL.
 
@@ -45,9 +46,19 @@ public class LoginManager : MonoBehaviour
 
             if (response.StatusCode == HttpStatusCode.OK)
             {
-                // Credentials are correct, you can call your function here
-                ChangeScene(4);
+                // Parse the playerID from the response
+                if (int.TryParse(responseText, out int parsedPlayerID))
+                {
+                    // Credentials are correct, you can call your function here
+                    ChangeScene(4, parsedPlayerID);
+                }
+                else
+                {
+                    // Handle the case where parsing the playerID failed
+                    Debug.LogError("Failed to parse playerID from response: " + responseText);
+                }
             }
+
             else
             {
                 // Credentials are incorrect, handle the error (e.g., display an error message).
@@ -64,11 +75,14 @@ public class LoginManager : MonoBehaviour
     }
 
 
-    private void ChangeScene(int sceneNr)
+
+    private void ChangeScene(int sceneNr, int playerID)
     {
         // Implement the logic to be executed when the user successfully logs in
-        Debug.Log("Login successful!");
+        Debug.Log("Login successful for : " + playerID + " !");
         loginUI.ChangeMenu(sceneNr);
+        
+        playerSessionIDHolder.playerID = playerID;
         // Add your code here to perform actions upon successful login.
     }
 }

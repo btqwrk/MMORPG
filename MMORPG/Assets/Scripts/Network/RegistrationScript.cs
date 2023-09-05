@@ -5,6 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 using MMOClassLib;
 using Newtonsoft.Json;
+using System;
+using Unity.VisualScripting;
+using YourNamespace;
 
 namespace YourNamespace
 {
@@ -13,21 +16,24 @@ namespace YourNamespace
         public TMP_InputField usernameInput;
         public TMP_InputField passwordInput;
         public TMP_Text registrationStatusText;
+        public PlayerSessionIDHolder playerIDHolder;
+
+        private int registeredPlayerID;
 
         public void Register()
         {
             string username = usernameInput.text;
             string password = passwordInput.text;
+
             StartCoroutine(RegisterCoroutine(username, password));
-            Debug.Log(username.ToString());
-            Debug.Log(password.ToString());
+
         }
 
         IEnumerator RegisterCoroutine(string username, string password)
         {
             // Define your server URL
             string serverUrl = "http://localhost:8080/api/registration";
-            
+
             // Create a RegistrationData object to hold the registration data
             RegistrationData registrationData = new RegistrationData
             {
@@ -35,12 +41,8 @@ namespace YourNamespace
                 Password = password
             };
 
-            Debug.Log(registrationData.ToString());
-
             // Convert the RegistrationData object to JSON
             string json = JsonConvert.SerializeObject(registrationData);
-            Debug.Log("JSON to send: " + json);
-
 
             // Create a UnityWebRequest to send the data as JSON
             UnityWebRequest request = UnityWebRequest.PostWwwForm(serverUrl, "POST");
@@ -51,16 +53,43 @@ namespace YourNamespace
 
             yield return request.SendWebRequest();
 
-            if (request.result == UnityWebRequest.Result.Success)
+            try
             {
-                // Registration successful
-                registrationStatusText.text = "Registration successful";
+                // Registration successful, parse the response JSON to get the player ID
+                string responseJson = request.downloadHandler.text;
+                RegistrationResponse registrationResponse = JsonConvert.DeserializeObject<RegistrationResponse>(responseJson);
+
+                if (registrationResponse != null && registrationResponse.PlayerID > 0)
+                {
+                    print(registrationResponse);
+                    print(registrationResponse.PlayerID);
+                    // Update the player ID in the PlayerSessionIDHolder
+                    playerIDHolder.playerID = registrationResponse.PlayerID;
+                    registrationStatusText.text = "Registration successful";
+                }
+                else if (registrationResponse == null)
+                {
+                    print("nothing came through at all from the server as a player id response");
+                }
+                else
+                {
+                    print(registrationResponse);
+                    print(registrationResponse.PlayerID);
+                    registrationStatusText.text = "Registration failed: Invalid player ID received";
+                }
+
             }
-            else
+            catch (JsonException ex)
             {
-                // Registration failed
-                registrationStatusText.text = "Registration failed: " + request.error;
+                // Handle JSON parsing error
+                registrationStatusText.text = "JSON parsing error: " + ex.Message;
+            }
+            catch (Exception ex)
+            {
+                // Handle other exceptions
+                registrationStatusText.text = "Error: " + ex.Message;
             }
         }
+
     }
 }

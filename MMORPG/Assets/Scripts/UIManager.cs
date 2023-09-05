@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     public GameObject loadingScreen;
     public GameObject characterSelectionScreen;
     public GameObject registerScreen;
+    public GameObject characterCreationScreen;
 
 
 
@@ -23,7 +24,8 @@ public class UIManager : MonoBehaviour
         SettingsScreen = 2,
         LoadingScreen = 3,
         CharacterSelectionScreen = 4,
-        RegisterScreen = 5
+        RegisterScreen = 5,
+        CharacterCreationScreen = 6
     }
 
     void Awake()
@@ -71,6 +73,14 @@ public class UIManager : MonoBehaviour
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(false);
                 registerScreen.SetActive(true); // Add this line
+                break;
+            case UIs.CharacterCreationScreen:
+                loginScreen.SetActive(false);
+                loadingScreen.SetActive(false);
+                settingsScreen.SetActive(false);
+                characterSelectionScreen.SetActive(false);
+                registerScreen.SetActive(false);
+                characterCreationScreen.SetActive(true);
                 break;
         }
     }
