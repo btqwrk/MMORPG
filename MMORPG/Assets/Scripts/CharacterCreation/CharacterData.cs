@@ -5,7 +5,6 @@ using MMOClassLib;
 public class CharacterData : ScriptableObject
 {
     public int playerID;
-    public int characterID;
     public string name;
     public int level;
     public string characterClass;

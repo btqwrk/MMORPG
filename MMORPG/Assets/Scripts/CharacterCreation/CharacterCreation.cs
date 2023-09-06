@@ -39,11 +39,11 @@ public class CharacterCreation : MonoBehaviour
         // Create a JSON object or string with the character data
         CharacterData characterData = ScriptableObject.CreateInstance<CharacterData>();
         characterData.playerID = playerid;
-        characterData.characterID = CharacterID;
         characterData.name = characterName;
         characterData.race = selectedRace;
         characterData.gender = selectedGender;
         characterData.characterClass = selectedClass;
+        characterData.level = 1;
         characterData.hp = 100;
         characterData.resource = 100;
         characterData.stamina = 0;
@@ -65,7 +65,10 @@ public class CharacterCreation : MonoBehaviour
         characterData.mainWeaponID = 0;
         characterData.offHandID = 0;
 
+
         string characterDataJson = JsonUtility.ToJson(characterData);
+
+        print(characterDataJson);
 
         StartCoroutine(SendCharacterData(characterDataJson));
     }
