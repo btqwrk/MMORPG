@@ -45,6 +45,7 @@ public class UIManager : MonoBehaviour
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(false);
                 registerScreen.SetActive(false); // Add this line
+                characterCreationScreen.SetActive(false);
                 break;
             case UIs.SettingsScreen:
                 loginScreen.SetActive(false);
@@ -52,6 +53,7 @@ public class UIManager : MonoBehaviour
                 settingsScreen.SetActive(true);
                 characterSelectionScreen.SetActive(false);
                 registerScreen.SetActive(false); // Add this line
+                characterCreationScreen.SetActive(false);
                 break;
             case UIs.LoadingScreen:
                 loginScreen.SetActive(false);
@@ -59,6 +61,7 @@ public class UIManager : MonoBehaviour
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(false);
                 registerScreen.SetActive(false); // Add this line
+                characterCreationScreen.SetActive(false);
                 break;
             case UIs.CharacterSelectionScreen:
                 loginScreen.SetActive(false);
@@ -66,6 +69,7 @@ public class UIManager : MonoBehaviour
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(true);
                 registerScreen.SetActive(false); // Add this line
+                characterCreationScreen.SetActive(false);
                 break;
             case UIs.RegisterScreen: // Add this case
                 loginScreen.SetActive(false);
@@ -73,6 +77,7 @@ public class UIManager : MonoBehaviour
                 settingsScreen.SetActive(false);
                 characterSelectionScreen.SetActive(false);
                 registerScreen.SetActive(true); // Add this line
+                characterCreationScreen.SetActive(false);
                 break;
             case UIs.CharacterCreationScreen:
                 loginScreen.SetActive(false);
